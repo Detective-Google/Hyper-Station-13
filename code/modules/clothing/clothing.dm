@@ -75,6 +75,7 @@
 	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object."
 	list_reagents = list("nutriment" = 1)
 	tastes = list("dust" = 1, "lint" = 1)
+	foodtype = CLOTH
 
 /obj/item/clothing/attack(mob/M, mob/user, def_zone)
 	if(user.a_intent != INTENT_HARM && ismoth(M))
@@ -331,6 +332,15 @@ BLIND     // can't see anything
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint ^= initial(tint)
 
+/obj/item/clothing/head/helmet/space/plasmaman/visor_toggling() //handles all the actual toggling of flags
+	up = !up
+	clothing_flags ^= visor_flags
+	flags_inv ^= visor_flags_inv
+	icon_state = "[initial(icon_state)]"
+	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
+		flash_protect ^= initial(flash_protect)
+	if(visor_vars_to_toggle & VISOR_TINT)
+		tint ^= initial(tint)
 
 /obj/item/clothing/proc/can_use(mob/user)
 	if(user && ismob(user))
